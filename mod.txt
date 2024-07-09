@@ -1,0 +1,48 @@
+{
+	"name" : "Discord Rich Presence",
+	"description" : "Adds Discords Rich Presence functionality.",
+	"author" : "vojin154",
+	"contact" : "vojin154 (Discord)",
+	"version" : "0.0",
+	"blt_version" : 2,
+	"undisablable" : true,
+	"disable_safe_mode" : true,
+	"updates": [
+		{
+			"identifier": "pdth_rpc",
+			"host": {
+				"meta": "https://raw.githubusercontent.com/vojin154/PDTH-Discord-Rich-Presence/mod/meta.json"
+			}
+		}
+	],
+	"hooks" : [
+		{
+			"hook_id" : "lib/setups/setup",
+			"script_path" : "main.lua"
+		},
+		{
+			"hook_id" : "lib/managers/menumanager",
+			"script_path" : "main.lua"
+		},
+		{
+			"hook_id" : "lib/network/base/clientnetworksession",
+			"script_path" : "main.lua"
+		},
+		{
+			"hook_id" : "lib/states/ingamewaitingforplayers",
+			"script_path" : "main.lua"
+		},
+		{
+			"hook_id" : "lib/network/base/basenetworksession",
+			"script_path" : "main.lua"
+		},
+		{
+			"hook_id" : "lib/network/base/networkpeer",
+			"script_path" : "main.lua"
+		},
+		{
+			"hook_id" : "lib/network/matchmaking/networkmatchmakingsteam",
+			"script_path" : "main.lua"
+		}
+	]
+}
