@@ -3,7 +3,7 @@
 	"description" : "Adds Discords Rich Presence functionality.",
 	"author" : "vojin154",
 	"contact" : "vojin154 (Discord)",
-	"version" : "1.0",
+	"version" : "1.1",
 	"blt_version" : 2,
 	"undisablable" : true,
 	"disable_safe_mode" : true,
