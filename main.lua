@@ -1,4 +1,4 @@
-PDTH_RPC = PDTH_RPC or {}
+PDTH_RPC = PDTH_RPC or class()
 PDTH_RPC._mod_path = ModPath
 PDTH_RPC._save_path = SavePath .. "PDTH_RPC_RECENT_PLAYERS.txt"
 PDTH_RPC._game_id = "24240"
@@ -34,11 +34,13 @@ function PDTH_RPC:in_menu()
 	self:rpc():InMenu()
 end
 
---Broken, don't use.
---Keeping for future incase, I get to fix it somehow.
-function PDTH_RPC:set_time_stamp()
-	PDTH_RPC:rpc():SetTimestamp(os.time())
-end
+--[[
+	Broken, don't use.
+	Keeping for future incase, I get to fix it somehow.
+	function PDTH_RPC:set_time_stamp()
+		PDTH_RPC:rpc():SetTimestamp(os.time())
+	end
+]]
 
 function PDTH_RPC:get_player(user_id)
 	for i = 1, #self._players do
