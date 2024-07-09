@@ -8,7 +8,6 @@ Hooks:PostHook(MenuManager, "open_menu", PDTH_RPC:get_hook_id_str("open_menu"), 
     end
 end)
 
-
 Hooks:PostHook(MenuCallbackHandler, "lobby_start_the_game", PDTH_RPC:get_hook_id_str("lobby_start_the_game"), function(self)
     local id = Global.game_settings.level_id
 	local name = id and tweak_data.levels[id].world_name

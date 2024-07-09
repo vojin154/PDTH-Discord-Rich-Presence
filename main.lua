@@ -1,11 +1,25 @@
 PDTH_RPC = PDTH_RPC or class()
 PDTH_RPC._mod_path = ModPath
 PDTH_RPC._save_path = SavePath .. "PDTH_RPC_RECENT_PLAYERS.txt"
+PDTH_RPC._dll_name = "PDTH Discord Rich Presence.dll"
+PDTH_RPC._dll_location = "./" .. PDTH_RPC._dll_name
 PDTH_RPC._game_id = "24240"
 PDTH_RPC._join_link = "steam://joinlobby/"
 PDTH_RPC._players = {}
 
-_, PDTH_RPC._rich_presence = blt.load_native(PDTH_RPC._mod_path .. "PDTH Discord Rich Presence.dll")
+function PDTH_RPC:dll_exists()
+	if not io.file_is_readable(self._dll_location) then
+		return
+	end
+	return true
+end
+
+if not PDTH_RPC:dll_exists() then
+	error(".DLL WASN'T FOUND, MAKE SURE YOU'VE DRAGGED YOUR .DLL TO THE ROOT FOLDER. MORE INFO ON MODS PAGE.")
+	return
+end
+
+_, PDTH_RPC._rich_presence = blt.load_native(PDTH_RPC._dll_location)
 
 local hook_id = "PDTH_RPC"
 function PDTH_RPC:get_hook_id_str(str)
