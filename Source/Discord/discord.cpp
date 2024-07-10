@@ -6,9 +6,16 @@
 
 /*
 TO-DO:
-    - FIGURE OUT THE NAME OF THE ICON OVK USED SINCE DISCORD DOESNT WANT TO TELL ME / OR MAKE MY OWN APPLICATION
+    - FIGURE OUT THE NAME OF THE ICON OVK USED SINCE DISCORD DOESNT WANT TO TELL ME / OR MAKE MY OWN APPLICATION / MANAGE TO RESIZE THE IMAGE TAKEN STRAIGHT FROM DISCORD
+      https://cdn.discordapp.com/app-icons/451546040382914567/0b5a98a56a970a8c62e497bf2b9063c7.webp - FOR SOME REASON DISCORD RESIZES THE IMAGES WHEN USING LINK??
+      ADDING ?size=40 CHANGES RESOLUTION
+      TRIED ALSO ADDING keep_aspect_ratio=false BUT DISCORD SEEMS TO IGNORE IT
+      EVEN THOUGH THEY USE https://cdn.discordapp.com/app-icons/451546040382914567/0b5a98a56a970a8c62e497bf2b9063c7.webp?size=40&keep_aspect_ratio=false IT DOESN'T WORK WHEN USING FROM HERE
+
     - ADD SUPPORT FOR CUSTOM MESSAGES
+
     - IF THAT EVER HAPPENS ADD SUPPORT FOR MAX PLAYERS AMOUNT
+
     - IMPROVE CODE
 */
 
@@ -18,7 +25,7 @@ TO-DO:
 const char* rpcID = "451546040382914567";
 const char* name = "PAYDAY: The Heist";
 const char* gameId = "24240";
-const char* icon = "";
+const char* icon = "https://cdn.discordapp.com/app-icons/451546040382914567/0b5a98a56a970a8c62e497bf2b9063c7.webp";
 std::string mod = "[PDTH - DISCORD RPC]";
 
 DiscordRichPresence discordPresence;
@@ -113,6 +120,14 @@ static void SetStatus(bool update, const char* state) {
     Discord_UpdatePresence(&discordPresence);
 }
 
+void Discord::IncrementPlayers() {
+    Discord::SetPlayerCount(playerCount + 1);
+}
+
+void Discord::DecrementPlayers() {
+    Discord::SetPlayerCount(playerCount - 1);
+}
+
 void Discord::InMenu() {
     Discord::SetPlayerCount(0);
     Discord::SetMultiplayer(false);
@@ -120,17 +135,24 @@ void Discord::InMenu() {
     SetStatus(true, "In Menu!");
 }
 
+void Discord::InLoadout() {
+    SetStatus(true, "Choosing A Loadout!");
+}
+
+void Discord::Intro() {
+    SetStatus(true, "Listening To Bains Plan!");
+}
+
+void Discord::Playing() {
+    if (multiplayer) {
+        SetStatus(true, "Heist In Progress!");
+    }
+    else SetStatus(true, "Heist In Progress! (OFFLINE)");
+}
+
 void Discord::SetPlayerCount(int amount) {
     playerCount = amount;
     SetStatus(false, "");
-}
-
-void Discord::IncrementPlayers() {
-    Discord::SetPlayerCount(playerCount + 1);
-}
-
-void Discord::DecrementPlayers() {
-    Discord::SetPlayerCount(playerCount - 1);
 }
 
 void Discord::SetHeist(const char* heist_char) {
@@ -153,14 +175,6 @@ void Discord::SetMultiplayer(bool isMultiplayer) {
     SetStatus(false, "");
 }
 
-void Discord::InLoadout() {
-    SetStatus(true, "Choosing A Loadout!");
-}
-
-void Discord::Intro() {
-    SetStatus(true, "Listening To Bains Plan!");
-}
-
 void Discord::SetLoading(bool is_loading) {
     loading = is_loading;
     SetStatus(true, "Loading!");
@@ -169,11 +183,4 @@ void Discord::SetLoading(bool is_loading) {
 void Discord::InLobby(bool lobby) {
     inLobby = lobby;
     SetStatus(true, "In Lobby!");
-}
-
-void Discord::Playing() {
-    if (multiplayer) {
-        SetStatus(true, "In-Game!");
-    }
-    else SetStatus(true, "In-Game! (OFFLINE)");
 }
