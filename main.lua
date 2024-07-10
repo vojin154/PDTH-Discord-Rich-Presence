@@ -48,13 +48,16 @@ function PDTH_RPC:in_menu()
 	self:rpc():InMenu()
 end
 
---[[
-	Broken, don't use.
-	Keeping for future incase, I get to fix it somehow.
-	function PDTH_RPC:set_time_stamp()
-		PDTH_RPC:rpc():SetTimestamp(os.time())
-	end
-]]
+function PDTH_RPC:set_attributes(heist_idx, difficulty_idx)
+	local world_name = tweak_data.levels:get_world_name_from_index(heist_idx)
+    local heist = tweak_data.levels:get_localized_level_name_from_world_name(world_name)
+
+	local difficulty = tweak_data:index_to_difficulty(difficulty_idx) or Global.game_settings.difficulty
+	difficulty = managers.localization:text("menu_difficulty_" .. difficulty)
+
+    PDTH_RPC:rpc():SetHeist(heist:upper())
+    PDTH_RPC:rpc():SetDifficulty(difficulty:upper())
+end
 
 function PDTH_RPC:get_player(user_id)
 	for i = 1, #self._players do

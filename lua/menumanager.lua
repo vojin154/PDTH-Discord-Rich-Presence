@@ -10,15 +10,16 @@ end)
 
 Hooks:PostHook(MenuCallbackHandler, "lobby_start_the_game", PDTH_RPC:get_hook_id_str("lobby_start_the_game"), function(self)
     local id = Global.game_settings.level_id
-	local name = id and tweak_data.levels[id].world_name
-    local heist = string.upper(tweak_data.levels:get_localized_level_name_from_world_name(name))
-    local difficulty = string.upper(managers.localization:text("menu_difficulty_" .. Global.game_settings.difficulty))
+    id = tweak_data.levels:get_index_from_level_id(id)
 
-    PDTH_RPC:rpc():SetHeist(heist)
-    PDTH_RPC:rpc():SetDifficulty(difficulty)
+    PDTH_RPC:set_attributes(id)
 end)
 
 
 Hooks:PostHook(MenuCallbackHandler, "play_single_player", PDTH_RPC:get_hook_id_str("play_single_player"), function(self)
+    local id = Global.game_settings.level_id
+    id = tweak_data.levels:get_index_from_level_id(id)
+
+    PDTH_RPC:set_attributes(id)
     PDTH_RPC:rpc():InLobby()
 end)
